@@ -1,25 +1,25 @@
 require_relative '../ad_inserter.rb'
-
+require 'pry'
 
 describe 'Ad Inserter' do
   # Episodes
-  let!(:dag_892) do
+  let(:dag_892) do
     Episode.new("++++[MID]++++[MID]++++[POST]", "dag-892")
   end
 
-  let!(:abc_123) do
+  let(:abc_123) do
     Episode.new("[PRE]++++[MID]++++[MID]++[MID]++[POST]", "abc-123")
   end
 
-  let!(:hab_812) do
+  let(:hab_812) do
     Episode.new("[PRE][PRE]++++[MID]++++[MID]++[MID]++[POST]", "hab-812")
   end
 
-  let!(:efa_931) do
+  let(:efa_931) do
     Episode.new("[PRE][PRE]++++++++++", "efa-931")
   end
 
-  let!(:paj_103) do
+  let(:paj_103) do
     Episode.new("++++[MID]+++++[MID]++++[MID]++[POST]", "paj-103")
   end
 
@@ -93,14 +93,29 @@ describe 'Ad Inserter' do
     end
   end
 
-  xit 'returns expected audio for dag-892 episode' do
-    output = "++++*TacoCat*++++++++"
-    expect(dag_892.audio_output).to eq output
+  it 'returns expected episode audio with attr accessor' do
+    abc_123_audio = "[PRE]++++[MID]++++[MID]++[MID]++[POST]"
+    abc_123 = Episode.new("[PRE]++++[MID]++++[MID]++[MID]++[POST]", "abc-123")
+    expect(abc_123.audio).to eq abc_123_audio
   end
 
-  xit 'returns expected audio for abc 123 episode' do
-    # Episode.new("[PRE]++++[MID]++++[MID]++[MID]++[POST]", "abc-123")
+  # Corp Corp A
+  # AdCampaign.new("*CorpCorpA*", "PRE", ["abc-123", "dag-892"], 11)
+  # Taco Cat
+  # AdCampaign.new("*TacoCat*", "MID", ["abc-123", "dag-892"], 3)
+  # Giant Giraffe A
+  # AdCampaign.new("*GiantGiraffeA*", "MID", ["paj-103", "abc-123"], 9)
+  # Giant Giraffe B
+  # AdCampaign.new("*GiantGiraffeB*", "MID", ["paj-103", "abc-123"], 4)
+  # Corp Corp B
+  # AdCampaign.new("*CorpCorpB*", "POST", ["abc-123", "dag-892"], 7)
+
+  it 'returns expected audio for abc 123 episode' do
+    abc_123 = Episode.new("[PRE]++++[MID]++++[MID]++[MID]++[POST]", "abc-123")
+    ad_inserter_2 = AdInserter.new(, all_ad_campaigns)
     output = "*CorpCorpA*++++*TacoCat*++++*GiantGiraffeA*++*GiantGiraffeB*++*CorpCorpB*"
-    expect(abc_123.audio_output).to eq output
+    expect(ad_inserter_2.audio_output).to eq output
+    # But Currently Getting
+    # "*CorpCorpA**TacoCat**TacoCat**TacoCat**CorpCorpB*"
   end
 end
