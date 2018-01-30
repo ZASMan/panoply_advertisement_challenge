@@ -19,10 +19,11 @@ class AdCampaign
 end
 
 class AdInserter
-  attr_accessor :episode, :ad_campaigns
+  attr_accessor :episode, :ad_campaigns, :episode_audio, :potential_ads
 
   def initialize(episode, ad_campaigns)
     @episode = episode
+    @episode_audio = @episode.audio
     @ad_campaigns = ad_campaigns
     @potential_ads = potential_ads_available
   end
