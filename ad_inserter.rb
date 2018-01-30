@@ -29,9 +29,9 @@ end
 class AdInserter
   attr_accessor :episode, :ad_campaign
 
-  def initialize(episode, ad_campaign)
+  def initialize(episode, ad_campaign_array)
     @episode = episode.episode_hash
-    @ad_campaign = ad_campaign.ad_campaign_hash
+    @ad_campaign = ad_campaign_array
   end
 
   def audio_output
