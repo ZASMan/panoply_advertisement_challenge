@@ -1,4 +1,6 @@
 class Episode
+  attr_accessor :audio, :id
+
   def initialize(audio, id)
     @audio = audio
     @id = id
@@ -10,6 +12,8 @@ class Episode
 end
 
 class AdCampaign
+  attr_accessor :audio, :type, :targets, :revenue
+
   def initialize(audio, type, targets, revenue)
     @audio = audio
     @type = type
@@ -23,6 +27,7 @@ class AdCampaign
 end
 
 class AdInserter
+  attr_accessor :episode, :ad_campaign
 
   def initialize(episode, ad_campaign)
     @episode = episode.episode_hash
