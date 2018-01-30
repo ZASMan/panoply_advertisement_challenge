@@ -5,10 +5,6 @@ class Episode
     @audio = audio
     @id = id
   end
-
-  def episode_hash
-    { audio: @audio, id: id }
-  end
 end
 
 class AdCampaign
@@ -20,21 +16,27 @@ class AdCampaign
     @targets = targets
     @revenue = revenue
   end
-
-  def ad_campaign_hash
-    { audio: @audio, type: @type, targets: @targets, revenue: @revenue }
-  end
 end
 
 class AdInserter
   attr_accessor :episode, :ad_campaign
 
   def initialize(episode, ad_campaign_array)
-    @episode = episode.episode_hash
+    @episode = episode
     @ad_campaign = ad_campaign_array
   end
 
   def audio_output
 
+  end
+
+  def ad_spaces_available
+    audio = @episode.audio
+    audio.gsub!('+', '')
+    audio
+  end
+
+  def available_ad_slots
+    slots = []
   end
 end
