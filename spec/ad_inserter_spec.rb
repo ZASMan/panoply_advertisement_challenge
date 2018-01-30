@@ -80,6 +80,19 @@ describe 'Ad Inserter' do
     expect(ad_inserter_1.ad_spaces_available).to eq "[MID][MID][POST]"
   end
 
+  it 'returns the expected eligible ads available' do
+    # For dag 892, as seen above, spaces available are "[MID][MID][POST]"
+    # Potential ad campaigns mid/post dag 892 are: acme_b, acme_c, taco_cat, corp_corp_b
+    # non potential dag_892_are acme_a, corp_corp_a, furry_dog_a, furry_dog_b
+    # Expected Inclusions
+    [acme_b, acme_c, taco_cat, corp_corp_b].each do |eligible_ad|
+      expect(ad_inserter_1.potential_ads_available).to include(eligible_ad)
+    end
+    [acme_a, corp_corp_a, furry_dog_a, furry_dog_b].each do |ineligible_ad|
+      expect(ad_inserter_1.potential_ads_available).to_not include(ineligible_ad)
+    end
+  end
+
   xit 'returns expected audio for dag-892 episode' do
     output = "++++*TacoCat*++++++++"
     expect(dag_892.audio_output).to eq output
